@@ -8,7 +8,7 @@ export class PersistentShellExecutor {
 	private shellProc: any;
 	private chunks: string[] = [];
 	private dataListeners: Array<(data: string) => void> = [];
-	private errorListeners: Array<(error: unknown) => void> = []; // (error) => console.log("[errorListeners]", error)
+	private errorListeners: Array<(error: unknown) => void> = [(error) => console.log("[PersistentShellExecutor] [errorListeners]", error)];
 	private exitListeners: Array<(data: string) => void> = []; // (data) => console.log("[exitListeners]", data)
 
 	constructor() {
