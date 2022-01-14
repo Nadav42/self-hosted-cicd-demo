@@ -8,6 +8,8 @@ fi
 # goal: get bitbucket space seperated open PR branch names in $1, find all k8 active envs as well
 # destroy all k8 projects/apps that has cicd prefix in name but no open PR
 
+# this script will be ran in intervals via node.js script that will pass bitbucket api info
+
 bitbucket_pr_branches=($1)
 k8_envs=( dev-env prod client-cicd-one client-cicd-two client-cicd-three client-cicd-four client-cicd-five int )
 cicd_env_prefix="client-cicd-"
