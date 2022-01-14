@@ -15,10 +15,14 @@ router.post('/shellExecutor', async (req, res) => {
     const results = [];
 
     for (let index = 0; index < commands.length; index++) {
-        const commandStr = commands[index];
-        const cmdRes = await shellExecutor.bash(commandStr);
-        console.log(cmdRes);
-        results.push({ commandStr, cmdRes });
+        try {
+            const commandStr = commands[index];
+            const cmdRes = await shellExecutor.bash(commandStr);
+            console.log(cmdRes);
+            results.push({ commandStr, cmdRes });
+        } catch (error) {
+            return res.status(500).json({ results, err: String(error) });
+        }
     }
 
     res.json({ results });
@@ -36,10 +40,15 @@ router.post('/persistentShellExecutor', async (req, res) => {
     await sleep(1000);
 
     for (let index = 0; index < commands.length; index++) {
-        const commandStr = commands[index];
-        const cmdRes = await persistentShellExecutor.execCmd(commandStr, { waitForOutput: true });
-        console.log(cmdRes);
-        results.push({ commandStr, cmdRes });
+        try {
+            const commandStr = commands[index];
+            const cmdRes = await persistentShellExecutor.execCmd(commandStr, { waitForOutput: true });
+            console.log(cmdRes);
+            results.push({ commandStr, cmdRes });
+        } catch (error) {
+            persistentShellExecutor.close();
+            return res.status(500).json({ results, err: String(error) });
+        }
     }
 
     persistentShellExecutor.close();
