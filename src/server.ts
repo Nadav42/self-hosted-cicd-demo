@@ -1,27 +1,42 @@
-import { bash } from './bash';
-
-console.log("hey");
+import { shellExecutor } from './shellExecutor';
+import { PersistentShellExecutor } from './persistentShellExecutor';
+import { sleep } from './utils';
 
 const test = async () => {
-	const cmd1 = await bash("x=5");
+	const cmd1 = await shellExecutor.bash("x=5");
 	console.log(cmd1);
 
-	const cmd2 = await bash("echo %x% ${x} $x");
+	const cmd2 = await shellExecutor.bash("echo %x% ${x} $x");
 	console.log(cmd2);
 
-	const cmd3 = await bash('x=5 && echo "${x} $x"');
+	const cmd3 = await shellExecutor.bash('x=5 && echo "${x} $x"');
 	console.log(cmd3);
 
-	const cmd4 = await bash('./test.sh');
+	const cmd4 = await shellExecutor.bash('./test.sh');
 	console.log(cmd4);
 }
 
-test();
+const test2 = async () => {
+	const persistentShellExecutor = new PersistentShellExecutor();
 
-// try this:
-// make POST that lets you run a command and returns the results
+	await sleep(1000);
 
-// check if the commands persists?
-// if I do oc-login or "x=5"
-// will I be loginned in the next command?
-// will "echo ${x}" print 5?
+	await persistentShellExecutor.printCmd('ls', { waitForOutput: true });
+
+	await persistentShellExecutor.printCmd('cd ./src && pwd', { waitForOutput: true });
+
+	await persistentShellExecutor.printCmd('ls', { waitForOutput: true });
+
+	await persistentShellExecutor.printCmd('x=100 && echo "set x success"', { waitForOutput: true });
+
+	await persistentShellExecutor.printCmd('echo "%x% ${x} $x"', { waitForOutput: true });
+
+	persistentShellExecutor.close();
+}
+
+// test();
+test2();
+
+// RESULT: state doesn't persists between execs, either:
+// 1. use persistent shell process
+// 2. use exec to execute .sh files that do clear at the end and return the final result
