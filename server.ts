@@ -1,8 +1,8 @@
-import { app } from './app';
+import { app } from './src/app';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import routes from './routes';
-import { testMain } from './main';
+import routes from './src/routes';
+import { testMain } from './src/main';
 
 testMain();
 
