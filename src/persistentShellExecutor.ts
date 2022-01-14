@@ -2,6 +2,7 @@ const spawn = require('child_process').spawn;
 
 interface IRunOptions {
 	waitForOutput: boolean;
+	timeoutMs?: number;
 }
 
 export class PersistentShellExecutor {
@@ -46,6 +47,7 @@ export class PersistentShellExecutor {
 
 	execCmd = async (cmd: string, options: IRunOptions) => {
 		let result = null;
+		const timeout = options.timeoutMs || 10000;
 
 		console.log("[PersistentShellExecutor]", cmd);
 
@@ -53,8 +55,11 @@ export class PersistentShellExecutor {
 			const cmdResChunks: string[] = [];
 
 			result = new Promise((resolve, reject) => {
+				const rejectAfterTimeout = setTimeout(() => reject(`[PersistentShellExecutor] [execCmd] timed out after ${timeout}ms`), timeout);
+
 				const handleResult = (data: any) => {
 					cmdResChunks.push(data.toString());
+					clearTimeout(rejectAfterTimeout);
 					resolve(cmdResChunks.join(''));
 				};
 
