@@ -12,7 +12,7 @@ const test = async () => {
 	const cmd3 = await shellExecutor.bash('x=5 && echo "${x} $x"');
 	console.log(cmd3);
 
-	const cmd4 = await shellExecutor.bash('./test.sh');
+	const cmd4 = await shellExecutor.bash('./shell-scripts/test.sh');
 	console.log(cmd4);
 }
 
@@ -30,6 +30,10 @@ const test2 = async () => {
 	await persistentShellExecutor.printCmd('x=100 && echo "set x success"', { waitForOutput: true });
 
 	await persistentShellExecutor.printCmd('echo "%x% ${x} $x"', { waitForOutput: true });
+
+	await persistentShellExecutor.printCmd('cd .. && pwd', { waitForOutput: true });
+
+	await persistentShellExecutor.printCmd('./shell-scripts/test.sh', { waitForOutput: true });
 
 	persistentShellExecutor.close();
 }
