@@ -1,3 +1,5 @@
+#!/bin/bash
+
 x=17
 
 # login to k8
