@@ -53,18 +53,36 @@ if using `from: ImageStream` and the image stream does not exist just remove thi
 
 4. clean the enviornment and test the same with a helm chart that injects app name values
 
-# TODO
-`helm command...` 
+`helm install <AppName> <ChartName>` 
 
+it should work just fine and create the app!
+
+------------
+
+`helm install` worked great however running the command with different appname will give errors because k8 resources already exists
+
+now we need to inject the appname from helm values in all templates:
+- replace all `myapp2` values in dc,service,route yamls with `{{ .Values.appname }}`
+
+dc.yaml: (important)
+- replace the image name with `docker.io/nadav/client:{{ .Values.appname }}` so it takes the correct image from helm injected values
+
+this should now work:
+`helm install <release-name> <chart-name> --set appname=<k8-app-name>`
+
+for example:
+`helm install cicd-preview-performance myapp2chart --set appname=cicd-preview-performance`
 
 ------------
 
 the cicd process should do:
 
-1. enviorment maker:
-- `oc delete all --selector app=cicd-preview-${branchName}` (to make sure it's destroyed and clean before we do helm install)
-# TODO
-- `helm install --name=cicd-preview-${branchName} --values=...name...`
+#### enviorment maker:
+1. `helm uninstall cicd-preview-${branchName}` # try to uninstall the helm release
+2. `oc delete all --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name
+3. `helm install <release-name> <chart-name> --set appname=<k8-app-name>` # install the new version
 
-2. enviorment destroyer:
-- `oc delete all --selector app=cicd-preview-${branchName}`
+
+#### enviorment destroyer:
+1. `helm uninstall cicd-preview-${branchName}` # try to uninstall the helm release
+2. `oc delete all --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name
