@@ -87,7 +87,7 @@ the cicd process should do:
 
 `$branch_name="<branch name with slashes '/' replaced with '-'>"`
 
-#### single enviorment maker script:
+#### single enviorment upsert script:
 1. `helm uninstall --wait cicd-preview-${branchName}` # try to uninstall the helm release if already exists
 2. `oc delete all --wait=true --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name if already exists
 3. `helm install cicd-preview-${branchName} <chart-name> --set appname=<k8-app-name>` # install the new chart's release
