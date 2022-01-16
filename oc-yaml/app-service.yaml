@@ -2,23 +2,20 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    openshift.io/generated-by: OpenShiftWebConsole
-  creationTimestamp: "2022-01-16T18:47:48Z"
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: "2022-01-16T19:59:23Z"
   labels:
-    app: express-hello-world
-    app.kubernetes.io/component: express-hello-world
-    app.kubernetes.io/instance: express-hello-world
-    app.kubernetes.io/name: express-hello-world
-    app.kubernetes.io/part-of: express-hello-world-app
-    app.openshift.io/runtime-version: latest
-  name: express-hello-world
+    app: myapp2
+    app.kubernetes.io/component: myapp2
+    app.kubernetes.io/instance: myapp2
+  name: myapp2
   namespace: cicd
-  resourceVersion: "38782"
-  uid: bab50cd7-5ba4-4fc4-a0f2-d689cd83af78
+  resourceVersion: "60061"
+  uid: dc2a8a01-2e63-498b-bb61-e821d479a911
 spec:
-  clusterIP: 10.217.4.184
+  clusterIP: 10.217.5.148
   clusterIPs:
-  - 10.217.4.184
+  - 10.217.5.148
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
@@ -29,8 +26,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: express-hello-world
-    deploymentconfig: express-hello-world
+    deploymentconfig: myapp2
   sessionAffinity: None
   type: ClusterIP
 status:

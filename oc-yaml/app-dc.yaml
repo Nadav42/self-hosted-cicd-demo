@@ -2,27 +2,22 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   annotations:
-    openshift.io/generated-by: OpenShiftWebConsole
-  creationTimestamp: "2022-01-16T18:47:48Z"
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: "2022-01-16T19:59:23Z"
   generation: 2
   labels:
-    app: express-hello-world
-    app.kubernetes.io/component: express-hello-world
-    app.kubernetes.io/instance: express-hello-world
-    app.kubernetes.io/name: express-hello-world
-    app.kubernetes.io/part-of: express-hello-world-app
-    app.openshift.io/runtime: nodejs
-    app.openshift.io/runtime-namespace: cicd
-  name: express-hello-world
+    app: myapp2
+    app.kubernetes.io/component: myapp2
+    app.kubernetes.io/instance: myapp2
+  name: myapp2
   namespace: cicd
-  resourceVersion: "38912"
-  uid: 927137ce-6e7b-4270-bb38-c63ec80fa6ae
+  resourceVersion: "60140"
+  uid: 90707ed6-dd0a-4b8c-9080-7d4958221c71
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
-    app: express-hello-world
-    deploymentconfig: express-hello-world
+    deploymentconfig: myapp2
   strategy:
     activeDeadlineSeconds: 21600
     resources: {}
@@ -36,16 +31,15 @@ spec:
   template:
     metadata:
       annotations:
-        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/generated-by: OpenShiftNewApp
       creationTimestamp: null
       labels:
-        app: express-hello-world
-        deploymentconfig: express-hello-world
+        deploymentconfig: myapp2
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/cicd/express-hello-world@sha256:3cd9ab19b51ce1fdebae8a21240e58a37d19fde42a3be0b68467022338500f5f
-        imagePullPolicy: IfNotPresent
-        name: express-hello-world
+      - image: docker.io/kornkitti/express-hello-world
+        imagePullPolicy: Always
+        name: myapp2
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -59,28 +53,18 @@ spec:
       terminationGracePeriodSeconds: 30
   test: false
   triggers:
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - express-hello-world
-      from:
-        kind: ImageStreamTag
-        name: express-hello-world:latest
-        namespace: cicd
-      lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/cicd/express-hello-world@sha256:3cd9ab19b51ce1fdebae8a21240e58a37d19fde42a3be0b68467022338500f5f
-    type: ImageChange
   - type: ConfigChange
 status:
   availableReplicas: 1
   conditions:
-  - lastTransitionTime: "2022-01-16T18:47:59Z"
-    lastUpdateTime: "2022-01-16T18:47:59Z"
+  - lastTransitionTime: "2022-01-16T19:59:30Z"
+    lastUpdateTime: "2022-01-16T19:59:30Z"
     message: Deployment config has minimum availability.
     status: "True"
     type: Available
-  - lastTransitionTime: "2022-01-16T18:48:00Z"
-    lastUpdateTime: "2022-01-16T18:48:00Z"
-    message: replication controller "express-hello-world-1" successfully rolled out
+  - lastTransitionTime: "2022-01-16T19:59:31Z"
+    lastUpdateTime: "2022-01-16T19:59:31Z"
+    message: replication controller "myapp2-1" successfully rolled out
     reason: NewReplicationControllerAvailable
     status: "True"
     type: Progressing
