@@ -79,19 +79,25 @@ this should now work:
 for example:
 `helm install cicd-preview-performance myapp2chart --set appname=cicd-preview-performance`
 
+`helm install "$branch_name" client-chart --set appname="$branch_name"`
+
 ------------
 
 the cicd process should do:
 
+`$branch_name="<branch name with slashes '/' replaced with '-'>"`
+
 #### single enviorment maker script:
-1. `helm uninstall cicd-preview-${branchName}` # try to uninstall the helm release if already exists
-2. `oc delete all --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name if already exists
+1. `helm uninstall --wait cicd-preview-${branchName}` # try to uninstall the helm release if already exists
+2. `oc delete all --wait=true --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name if already exists
 3. `helm install cicd-preview-${branchName} <chart-name> --set appname=<k8-app-name>` # install the new chart's release
 
+one liner:
+`branch_name="cicd-preview-chair" && helm uninstall --wait "$branch_name" && oc delete all --wait=true --selector app="$branch_name" && helm install "$branch_name" client-chart --set appname="$branch_name"`
 
 #### single enviorment destroyer script:
-1. `helm uninstall cicd-preview-${branchName}` # try to uninstall the helm release
-2. `oc delete all --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name
+1. `helm uninstall --wait cicd-preview-${branchName}` # try to uninstall the helm release
+2. `oc delete all --wait=true --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name
 
 #### enviorment garbage collector (interval script):
 1. get all active envs on helm / k8 with:
