@@ -1,0 +1,36 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  creationTimestamp: "2022-01-16T18:47:48Z"
+  labels:
+    app: express-hello-world
+    app.kubernetes.io/component: express-hello-world
+    app.kubernetes.io/instance: express-hello-world
+    app.kubernetes.io/name: express-hello-world
+    app.kubernetes.io/part-of: express-hello-world-app
+    app.openshift.io/runtime-version: latest
+  name: express-hello-world
+  namespace: cicd
+  resourceVersion: "38785"
+  uid: 0e274980-e582-47b1-830d-f3c33e0c5cf6
+spec:
+  host: express-hello-world-cicd.crc-dzk9v-master-0.crc.xypk7ds6nmgx.instruqt.io
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: express-hello-world
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+  - conditions:
+    - lastTransitionTime: "2022-01-16T18:47:48Z"
+      status: "True"
+      type: Admitted
+    host: express-hello-world-cicd.crc-dzk9v-master-0.crc.xypk7ds6nmgx.instruqt.io
+    routerCanonicalHostname: router-default.crc-dzk9v-master-0.crc.xypk7ds6nmgx.instruqt.io
+    routerName: default
+    wildcardPolicy: None
