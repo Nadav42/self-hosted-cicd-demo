@@ -13,9 +13,6 @@ metadata:
   resourceVersion: "60061"
   uid: dc2a8a01-2e63-498b-bb61-e821d479a911
 spec:
-  clusterIP: 10.217.5.148
-  clusterIPs:
-  - 10.217.5.148
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4

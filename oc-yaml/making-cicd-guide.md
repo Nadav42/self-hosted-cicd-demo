@@ -12,6 +12,17 @@
 
 `oc get route/myapp2 -o yaml > route.yaml`
 
+#### clean up the yamls
+
+dc.yaml:
+- can remove the `sha256:xxxx` tag at the end of the image
+- can remove auto image deploy (cause we gonna do oc delete all with --selector anyways when deploying new images..)
+
+service.yaml
+- remove `clusterIP` and `clusterIPs`, it will be auto generated / injected by k8
+
+#### test yamls with oc apply
+
 3. clean the enviornment and then test that the yaml files work with `oc apply` 
 
 `oc delete all --selector app=myapp2` or `oc delete dc,service,routes,imagestream --selector app=myapp2`
