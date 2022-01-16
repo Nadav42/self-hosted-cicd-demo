@@ -55,7 +55,6 @@ if using `from: ImageStream` and the image stream does not exist just remove thi
 
 - create helm chart: `helm create NAME` and cleanup the `templates` folder
 
-
 `helm install <AppName> <ChartName>` 
 
 it should work just fine and create the app!
@@ -65,10 +64,13 @@ it should work just fine and create the app!
 `helm install` worked great however running the command with different appname will give errors because k8 resources already exists
 
 now we need to inject the appname from helm values in all templates:
-- replace all `myapp2` values in dc,service,route yamls with `{{ .Values.appname }}`
+- replace all `myapp2` values in dc,service,route yamls with `{{ .Values.appname }}` using sed `sed -i 's/myapp2/{{ .Values.appname }}/g' *.yaml`
 
 dc.yaml: (important)
 - replace the image name with `docker.io/nadav/client:{{ .Values.appname }}` so it takes the correct image from helm injected values
+
+route.yaml:
+- replace the route with whatever I want `route-prefix-{{ .Values.appname }}`
 
 this should now work:
 `helm install <release-name> <chart-name> --set appname=<k8-app-name>`
