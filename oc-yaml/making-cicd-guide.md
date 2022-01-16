@@ -12,6 +12,8 @@
 
 `oc get route/myapp2 -o yaml > route.yaml`
 
+------------
+
 #### clean up the yamls
 
 dc.yaml:
@@ -20,6 +22,8 @@ dc.yaml:
 
 service.yaml
 - remove `clusterIP` and `clusterIPs`, it will be auto generated / injected by k8
+
+------------
 
 #### test yamls with oc apply
 
@@ -45,9 +49,7 @@ if using `from: ImageStream` and the image stream does not exist just remove thi
     `lastTriggeredImage: mydockerrepo.com/repo/myimage@sha256:xxxxxxxxxxxxxxxx`...
 ```
 
-# TODO
-`oc apply ...`
-
+------------
 
 4. clean the enviornment and test the same with a helm chart that injects app name values
 
