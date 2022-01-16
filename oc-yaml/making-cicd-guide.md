@@ -64,7 +64,8 @@ it should work just fine and create the app!
 `helm install` worked great however running the command with different appname will give errors because k8 resources already exists
 
 now we need to inject the appname from helm values in all templates:
-- replace all `myapp2` values in dc,service,route yamls with `{{ .Values.appname }}` using sed `sed -i 's/myapp2/{{ .Values.appname }}/g' *.yaml`
+- replace all `myapp2` values in dc,service,route yamls with `{{ .Values.appname }}` using sed:
+- `sed -i 's/myapp2/{{ .Values.appname }}/g' *.yaml`
 
 dc.yaml: (important)
 - replace the image name with `docker.io/nadav/client:{{ .Values.appname }}` so it takes the correct image from helm injected values
