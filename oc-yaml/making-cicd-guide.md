@@ -53,6 +53,9 @@ if using `from: ImageStream` and the image stream does not exist just remove thi
 
 4. clean the enviornment and test the same with a helm chart that injects app name values
 
+- create helm chart: `helm create NAME` and cleanup the `templates` folder
+
+
 `helm install <AppName> <ChartName>` 
 
 it should work just fine and create the app!
