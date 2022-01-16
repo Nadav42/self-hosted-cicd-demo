@@ -77,12 +77,22 @@ for example:
 
 the cicd process should do:
 
-#### enviorment maker:
-1. `helm uninstall cicd-preview-${branchName}` # try to uninstall the helm release
-2. `oc delete all --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name
-3. `helm install <release-name> <chart-name> --set appname=<k8-app-name>` # install the new version
+#### single enviorment maker script:
+1. `helm uninstall cicd-preview-${branchName}` # try to uninstall the helm release if already exists
+2. `oc delete all --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name if already exists
+3. `helm install cicd-preview-${branchName} <chart-name> --set appname=<k8-app-name>` # install the new chart's release
 
 
-#### enviorment destroyer:
+#### single enviorment destroyer script:
 1. `helm uninstall cicd-preview-${branchName}` # try to uninstall the helm release
 2. `oc delete all --selector app=cicd-preview-${branchName}` # clean up leftover k8 resources with that app name
+
+#### enviorment garbage collector (interval script):
+1. get all active envs on helm / k8 with:
+- `helm list -q --filter 'cicd-preview-*'`
+
+or
+
+- `oc get dc | grep cicd-preview- | awk '{ print $1 }'`
+
+then loop over it and match with open PR branches names
