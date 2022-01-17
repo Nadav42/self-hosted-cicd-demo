@@ -9,6 +9,7 @@ metadata:
     app: {{ .Values.appname }}
     app.kubernetes.io/component: {{ .Values.appname }}
     app.kubernetes.io/instance: {{ .Values.appname }}
+    app.kubernetes.io/part-of: test2
   name: {{ .Values.appname }}
   namespace: cicd
   resourceVersion: "60140"

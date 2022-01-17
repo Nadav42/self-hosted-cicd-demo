@@ -1,0 +1,5 @@
+{
+    "val": "key",
+    "injcval": "{{ .Values.appname }}",
+    "someValue": "xx-{{ .Values.appname }}-value"
+}
