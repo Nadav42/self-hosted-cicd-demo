@@ -73,6 +73,10 @@ dc.yaml: (important)
 route.yaml:
 - replace the route with whatever I want `route-prefix-{{ .Values.appname }}`
 
+config-map.yaml
+- use the `{{ tpl <string> <values> }}` helm function to inject chart values into external strings in yamls
+like `{{ tpl (.Files.Get "config.json") . | indent 4 }}`
+
 this should now work:
 `helm install <release-name> <chart-name> --set appname=<k8-app-name>`
 

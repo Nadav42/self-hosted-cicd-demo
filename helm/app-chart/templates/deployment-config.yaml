@@ -47,6 +47,18 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        - name: config-volume2
+          mountPath: /home/node
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Values.appname }}-config-map
+        - name: config-volume2
+          configMap:
+            name: {{ .Values.appname }}-config-map
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
