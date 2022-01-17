@@ -5,10 +5,10 @@ metadata:
     openshift.io/generated-by: OpenShiftNewApp
   creationTimestamp: "2022-01-16T19:59:23Z"
   labels:
-    app: myapp2
-    app.kubernetes.io/component: myapp2
-    app.kubernetes.io/instance: myapp2
-  name: myapp2
+    app: {{ .Values.appname }}
+    app.kubernetes.io/component: {{ .Values.appname }}
+    app.kubernetes.io/instance: {{ .Values.appname }}
+  name: {{ .Values.appname }}
   namespace: cicd
   resourceVersion: "60061"
   uid: dc2a8a01-2e63-498b-bb61-e821d479a911
@@ -23,6 +23,6 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    deploymentconfig: myapp2
+    deploymentconfig: {{ .Values.appname }}
   sessionAffinity: None
   type: ClusterIP

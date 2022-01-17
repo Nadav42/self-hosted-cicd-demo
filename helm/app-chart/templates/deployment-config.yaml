@@ -6,10 +6,10 @@ metadata:
   creationTimestamp: "2022-01-16T19:59:23Z"
   generation: 2
   labels:
-    app: myapp2
-    app.kubernetes.io/component: myapp2
-    app.kubernetes.io/instance: myapp2
-  name: myapp2
+    app: {{ .Values.appname }}
+    app.kubernetes.io/component: {{ .Values.appname }}
+    app.kubernetes.io/instance: {{ .Values.appname }}
+  name: {{ .Values.appname }}
   namespace: cicd
   resourceVersion: "60140"
   uid: 90707ed6-dd0a-4b8c-9080-7d4958221c71
@@ -17,7 +17,7 @@ spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
-    deploymentconfig: myapp2
+    deploymentconfig: {{ .Values.appname }}
   strategy:
     activeDeadlineSeconds: 21600
     resources: {}
@@ -34,12 +34,12 @@ spec:
         openshift.io/generated-by: OpenShiftNewApp
       creationTimestamp: null
       labels:
-        deploymentconfig: myapp2
+        deploymentconfig: {{ .Values.appname }}
     spec:
       containers:
       - image: docker.io/kornkitti/express-hello-world
         imagePullPolicy: Always
-        name: myapp2
+        name: {{ .Values.appname }}
         ports:
         - containerPort: 8080
           protocol: TCP

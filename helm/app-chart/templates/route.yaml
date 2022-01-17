@@ -5,19 +5,19 @@ metadata:
     openshift.io/host.generated: "true"
   creationTimestamp: "2022-01-16T19:59:23Z"
   labels:
-    app: myapp2
-    app.kubernetes.io/component: myapp2
-    app.kubernetes.io/instance: myapp2
-  name: myapp2
+    app: {{ .Values.appname }}
+    app.kubernetes.io/component: {{ .Values.appname }}
+    app.kubernetes.io/instance: {{ .Values.appname }}
+  name: {{ .Values.appname }}
   namespace: cicd
   resourceVersion: "60076"
   uid: 88318d64-1da9-42b3-b00d-c3651e73985e
 spec:
-  host: myapp2-cicd.crc-dzk9v-master-0.crc.dixq8zxscyo1.instruqt.io
+  host: {{ .Values.appname }}-cicd.crc-dzk9v-master-0.crc.crixmyflew57.instruqt.io
   port:
     targetPort: 8080-tcp
   to:
     kind: Service
-    name: myapp2
+    name: {{ .Values.appname }}
     weight: 100
   wildcardPolicy: None
